@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sonergie-ci.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Block access to admin areas (if any)
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /node_modules/
