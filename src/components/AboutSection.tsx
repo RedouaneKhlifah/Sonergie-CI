@@ -1,5 +1,6 @@
 import { CheckCircle, Award, Users, Globe, Shield, Heart } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
+import { motion } from "framer-motion";
 
 export function AboutSection() {
   const coreValues = [
@@ -37,15 +38,31 @@ export function AboutSection() {
   return (
     <section id="about" className="py-20 bg-gradient-to-br from-blue-50 to-white relative overflow-hidden" aria-labelledby="about-title">
       {/* Background Elements */}
-      <div className="absolute top-10 right-10 opacity-10" aria-hidden="true">
+      <motion.div 
+        className="absolute top-10 right-10 opacity-10" 
+        aria-hidden="true"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      >
         <Globe className="w-32 h-32 text-blue-600" />
-      </div>
-      <div className="absolute bottom-10 left-10 opacity-10" aria-hidden="true">
+      </motion.div>
+      <motion.div 
+        className="absolute bottom-10 left-10 opacity-10" 
+        aria-hidden="true"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+      >
         <Award className="w-24 h-24 text-yellow-500" />
-      </div>
+      </motion.div>
 
       <div className="container mx-auto px-6 relative">
-        <header className="text-center space-y-4 mb-16">
+        <motion.header 
+          className="text-center space-y-4 mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 id="about-title" className="text-4xl lg:text-5xl font-bold text-blue-900">
             À Propos de Sonergie-CI
           </h2>
@@ -53,11 +70,17 @@ export function AboutSection() {
             Votre partenaire de confiance pour l'import, la distribution et les services professionnels d'équipements électriques. 
             Nous livrons des solutions de qualité avec expertise, fiabilité et une approche centrée client.
           </p>
-        </header>
+        </motion.header>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
           {/* Left Content */}
-          <div className="space-y-8">
+          <motion.div 
+            className="space-y-8"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             <div className="space-y-6">
               <h3 className="text-3xl font-bold text-blue-900">
                 Excellence Électrique Depuis le Premier Jour
@@ -77,81 +100,120 @@ export function AboutSection() {
               </h3>
               <ul className="grid gap-3" role="list" aria-label="Spécialisations de Sonergie-CI">
                 {specializations.map((spec, index) => (
-                  <li key={index} className="flex items-start space-x-3" role="listitem">
+                  <motion.li 
+                    key={index} 
+                    className="flex items-start space-x-3" 
+                    role="listitem"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
                     <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
                     <span className="text-gray-700">{spec}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Content - Stats */}
-          <div className="grid grid-cols-2 gap-6" role="list" aria-label="Statistiques de performance">
-            <Card className="text-center p-8 border-2 border-blue-100 hover:border-blue-200 transition-colors" role="listitem">
-              <CardContent className="p-0">
-                <div className="text-4xl font-bold text-blue-900 mb-2" aria-label="Plus de 15 années d'expérience">15+</div>
-                <div className="text-gray-600">Années d'Expérience</div>
-              </CardContent>
-            </Card>
-            
-            <Card className="text-center p-8 border-2 border-yellow-100 hover:border-yellow-200 transition-colors" role="listitem">
-              <CardContent className="p-0">
-                <div className="text-4xl font-bold text-yellow-600 mb-2" aria-label="Plus de 500 clients de confiance">500+</div>
-                <div className="text-gray-600">Clients de Confiance</div>
-              </CardContent>
-            </Card>
-            
-            <Card className="text-center p-8 border-2 border-green-100 hover:border-green-200 transition-colors" role="listitem">
-              <CardContent className="p-0">
-                <div className="text-4xl font-bold text-green-600 mb-2" aria-label="Plus de 2000 projets réalisés">2000+</div>
-                <div className="text-gray-600">Projets Réalisés</div>
-              </CardContent>
-            </Card>
-            
-            <Card className="text-center p-8 border-2 border-blue-100 hover:border-blue-200 transition-colors" role="listitem">
-              <CardContent className="p-0">
-                <div className="text-4xl font-bold text-blue-900 mb-2" aria-label="8 pays desservis">8</div>
-                <div className="text-gray-600">Pays Desservis</div>
-              </CardContent>
-            </Card>
-          </div>
+          <motion.div 
+            className="grid grid-cols-2 gap-6" 
+            role="list" 
+            aria-label="Statistiques de performance"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            {[
+              { number: "15+", label: "Années d'Expérience", color: "border-blue-100 hover:border-blue-200", textColor: "text-blue-900" },
+              { number: "500+", label: "Clients de Confiance", color: "border-yellow-100 hover:border-yellow-200", textColor: "text-yellow-600" },
+              { number: "2000+", label: "Projets Réalisés", color: "border-green-100 hover:border-green-200", textColor: "text-green-600" },
+              { number: "8", label: "Pays Desservis", color: "border-blue-100 hover:border-blue-200", textColor: "text-blue-900" }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className={`text-center p-8 border-2 ${stat.color} transition-colors`} role="listitem">
+                  <CardContent className="p-0">
+                    <motion.div 
+                      className={`text-4xl font-bold ${stat.textColor} mb-2`}
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 + 0.2, type: "spring", stiffness: 200 }}
+                      viewport={{ once: true }}
+                    >
+                      {stat.number}
+                    </motion.div>
+                    <div className="text-gray-600">{stat.label}</div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
 
         {/* Core Values */}
-        <section className="space-y-12" aria-labelledby="values-title">
-          <header className="text-center space-y-4">
+        <motion.section 
+          className="space-y-12" 
+          aria-labelledby="values-title"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <motion.header 
+            className="text-center space-y-4"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <h3 id="values-title" className="text-3xl font-bold text-blue-900">Nos Valeurs Fondamentales</h3>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Les principes qui guident notre travail et définissent notre engagement envers l'excellence en solutions électriques.
             </p>
-          </header>
+          </motion.header>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8" role="list" aria-label="Valeurs fondamentales de Sonergie-CI">
             {coreValues.map((value, index) => (
-              <Card 
-                key={index} 
-                className="group text-center p-8 border-2 border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                style={{
-                  animationDelay: `${index * 150}ms`,
-                }}
-                role="listitem"
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
               >
-                <CardContent className="p-0 space-y-4">
-                  <div className="w-16 h-16 bg-blue-100 group-hover:bg-blue-600 rounded-2xl flex items-center justify-center mx-auto transition-colors duration-300">
-                    <value.icon className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors duration-300" aria-hidden="true" />
-                  </div>
-                  <h4 className="text-xl font-semibold text-blue-900 group-hover:text-blue-700 transition-colors">
-                    {value.title}
-                  </h4>
-                  <p className="text-gray-600 leading-relaxed">
-                    {value.description}
-                  </p>
-                </CardContent>
-              </Card>
+                <Card 
+                  className="group text-center p-8 border-2 border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                  role="listitem"
+                >
+                  <CardContent className="p-0 space-y-4">
+                    <motion.div 
+                      className="w-16 h-16 bg-blue-100 group-hover:bg-blue-600 rounded-2xl flex items-center justify-center mx-auto transition-colors duration-300"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <value.icon className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors duration-300" aria-hidden="true" />
+                    </motion.div>
+                    <h4 className="text-xl font-semibold text-blue-900 group-hover:text-blue-700 transition-colors">
+                      {value.title}
+                    </h4>
+                    <p className="text-gray-600 leading-relaxed">
+                      {value.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
-        </section>
+        </motion.section>
       </div>
     </section>
   );

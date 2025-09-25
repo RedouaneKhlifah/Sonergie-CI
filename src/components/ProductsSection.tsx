@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowRight, Zap, Battery, Droplets, Sun } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface ProductsSectionProps {
   onProductSelect?: (product: any) => void;
@@ -46,7 +47,13 @@ export function ProductsSection({ onProductSelect }: ProductsSectionProps) {
   return (
     <section id="products" className="py-20 bg-white">
       <div className="container mx-auto px-6">
-        <div className="text-center space-y-4 mb-16">
+        <motion.div 
+          className="text-center space-y-4 mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 className="text-4xl lg:text-5xl font-bold text-blue-900">
             Produits Électriques Premium
           </h2>
@@ -54,65 +61,96 @@ export function ProductsSection({ onProductSelect }: ProductsSectionProps) {
             Équipements et composants électriques de haute qualité conçus pour la fiabilité, la sécurité et la performance. 
             Chaque produit est certifié aux normes internationales et soutenu par un support expert.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {products.map((product, index) => (
-            <Card 
-              key={product.id} 
-              className="group overflow-hidden border-2 border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              style={{
-                animationDelay: `${index * 150}ms`,
-              }}
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true }}
             >
-              <div className="relative overflow-hidden">
-                <ImageWithFallback
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-4 left-4">
-                  <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                    <product.icon className="w-6 h-6 text-blue-600" />
-                  </div>
-                </div>
-              </div>
-              
-              <CardHeader className="pb-4">
-                <CardTitle className="text-2xl text-blue-900 group-hover:text-blue-700 transition-colors">
-                  {product.name}
-                </CardTitle>
-              </CardHeader>
-              
-              <CardContent className="space-y-6">
-                <p className="text-gray-600 leading-relaxed">
-                  {product.description}
-                </p>
-                
-                <div className="space-y-2">
-                  {product.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-sm text-gray-700">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-                
-                <Button 
-                  variant="outline" 
-                  onClick={() => onProductSelect?.(product)}
-                  className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300"
+              <Card 
+                className="group overflow-hidden border-2 border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <motion.div 
+                  className="relative overflow-hidden"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  En Savoir Plus
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </CardContent>
-            </Card>
+                  <ImageWithFallback
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <motion.div 
+                    className="absolute top-4 left-4"
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                      <product.icon className="w-6 h-6 text-blue-600" />
+                    </div>
+                  </motion.div>
+                </motion.div>
+                
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-2xl text-blue-900 group-hover:text-blue-700 transition-colors">
+                    {product.name}
+                  </CardTitle>
+                </CardHeader>
+                
+                <CardContent className="space-y-6">
+                  <p className="text-gray-600 leading-relaxed">
+                    {product.description}
+                  </p>
+                  
+                  <div className="space-y-2">
+                    {product.features.map((feature, featureIndex) => (
+                      <motion.div 
+                        key={featureIndex} 
+                        className="flex items-center space-x-2"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.2 + featureIndex * 0.1 }}
+                        viewport={{ once: true }}
+                      >
+                        <motion.div 
+                          className="w-2 h-2 bg-green-500 rounded-full"
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 2, repeat: Infinity, delay: featureIndex * 0.2 }}
+                        />
+                        <span className="text-sm text-gray-700">{feature}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                  
+                  <Button 
+                    variant="outline" 
+                    onClick={() => onProductSelect?.(product)}
+                    className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300"
+                  >
+                    En Savoir Plus
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-16">
+        <motion.div 
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <Button 
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6"
@@ -120,7 +158,7 @@ export function ProductsSection({ onProductSelect }: ProductsSectionProps) {
             Voir Tous les Produits
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

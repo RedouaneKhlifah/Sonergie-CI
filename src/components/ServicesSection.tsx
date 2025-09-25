@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Zap, Home, Building, Cog, Cable, Camera, Wind, Flame, Shield } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function ServicesSection() {
   const services = [
@@ -53,7 +54,13 @@ export function ServicesSection() {
   return (
     <section id="services" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50" aria-labelledby="services-title">
       <div className="container mx-auto px-6">
-        <header className="text-center space-y-4 mb-16">
+        <motion.header 
+          className="text-center space-y-4 mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h2 id="services-title" className="text-4xl lg:text-5xl font-bold text-blue-900">
             Services Électriques Complets
           </h2>
@@ -61,58 +68,87 @@ export function ServicesSection() {
             Des installations électriques aux systèmes d'automatisation intelligents, nous fournissons des solutions électriques complètes 
             avec une expertise professionnelle et un service fiable dans toutes les applications.
           </p>
-        </header>
+        </motion.header>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" role="list" aria-label="Services électriques disponibles">
           {services.map((service, index) => (
-            <Card 
+            <motion.div
               key={index}
-              className="group bg-white border-2 border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
-              role="listitem"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
             >
-              <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <service.icon className="w-8 h-8 text-white" aria-hidden="true" />
-                </div>
-                <CardTitle className="text-xl text-blue-900 group-hover:text-blue-700 transition-colors">
-                  {service.title}
-                </CardTitle>
-              </CardHeader>
-              
-              <CardContent>
-                <p className="text-gray-600 text-center leading-relaxed">
-                  {service.description}
-                </p>
-              </CardContent>
-            </Card>
+              <Card 
+                className="group bg-white border-2 border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                role="listitem"
+              >
+                <CardHeader className="text-center pb-4">
+                  <motion.div 
+                    className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
+                    whileHover={{ rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <service.icon className="w-8 h-8 text-white" aria-hidden="true" />
+                  </motion.div>
+                  <CardTitle className="text-xl text-blue-900 group-hover:text-blue-700 transition-colors">
+                    {service.title}
+                  </CardTitle>
+                </CardHeader>
+                
+                <CardContent>
+                  <p className="text-gray-600 text-center leading-relaxed">
+                    {service.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
 
         {/* Service Promise */}
-        <section className="mt-20 bg-gradient-to-r from-blue-600 to-blue-800 rounded-3xl p-12 text-center text-white" aria-labelledby="promise-title">
+        <motion.section 
+          className="mt-20 bg-gradient-to-r from-blue-600 to-blue-800 rounded-3xl p-12 text-center text-white" 
+          aria-labelledby="promise-title"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <h3 id="promise-title" className="text-3xl font-bold mb-4">Notre Promesse de Service</h3>
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
             Nous livrons des solutions électriques professionnelles avec une qualité certifiée, une installation experte, 
             et un support continu. Votre satisfaction et la sécurité électrique sont nos priorités principales.
           </p>
           <div className="grid md:grid-cols-3 gap-8" role="list" aria-label="Engagements de service">
-            <div role="listitem">
-              <div className="text-4xl font-bold text-yellow-400" aria-label="Support disponible 24 heures sur 24, 7 jours sur 7">24/7</div>
-              <div className="text-blue-200">Support d'Urgence</div>
-            </div>
-            <div role="listitem">
-              <div className="text-4xl font-bold text-yellow-400" aria-label="100% des produits sont certifiés">100%</div>
-              <div className="text-blue-200">Produits Certifiés</div>
-            </div>
-            <div role="listitem">
-              <div className="text-4xl font-bold text-yellow-400" aria-label="Plus de 15 années d'expérience">15+</div>
-              <div className="text-blue-200">Années d'Expérience</div>
-            </div>
+            {[
+              { value: "24/7", label: "Support d'Urgence", ariaLabel: "Support disponible 24 heures sur 24, 7 jours sur 7" },
+              { value: "100%", label: "Produits Certifiés", ariaLabel: "100% des produits sont certifiés" },
+              { value: "15+", label: "Années d'Expérience", ariaLabel: "Plus de 15 années d'expérience" }
+            ].map((stat, index) => (
+              <motion.div 
+                key={index}
+                role="listitem"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <motion.div 
+                  className="text-4xl font-bold text-yellow-400" 
+                  aria-label={stat.ariaLabel}
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 + 0.3, type: "spring", stiffness: 200 }}
+                  viewport={{ once: true }}
+                >
+                  {stat.value}
+                </motion.div>
+                <div className="text-blue-200">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
-        </section>
+        </motion.section>
       </div>
     </section>
   );
