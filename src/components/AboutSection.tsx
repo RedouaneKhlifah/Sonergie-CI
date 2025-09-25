@@ -181,7 +181,11 @@ export function AboutSection() {
             </p>
           </motion.header>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8" role="list" aria-label="Valeurs fondamentales de Sonergie-CI">
+          <div
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+            role="list"
+            aria-label="Valeurs fondamentales de Sonergie-CI"
+          >
             {coreValues.map((value, index) => (
               <motion.div
                 key={index}
@@ -189,23 +193,27 @@ export function AboutSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                className="h-full" // Make motion div take full height
               >
-                <Card 
-                  className="group text-center p-8 border-2 border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                <Card
+                  className="group text-center p-8 border-2 border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
                   role="listitem"
                 >
-                  <CardContent className="p-0 space-y-4">
-                    <motion.div 
+                  <CardContent className="p-0 space-y-4 flex flex-col flex-1">
+                    <motion.div
                       className="w-16 h-16 bg-blue-100 group-hover:bg-blue-600 rounded-2xl flex items-center justify-center mx-auto transition-colors duration-300"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <value.icon className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors duration-300" aria-hidden="true" />
+                      <value.icon
+                        className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors duration-300"
+                        aria-hidden="true"
+                      />
                     </motion.div>
                     <h4 className="text-xl font-semibold text-blue-900 group-hover:text-blue-700 transition-colors">
                       {value.title}
                     </h4>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-gray-600 leading-relaxed flex-1">
                       {value.description}
                     </p>
                   </CardContent>
@@ -213,6 +221,7 @@ export function AboutSection() {
               </motion.div>
             ))}
           </div>
+
         </motion.section>
       </div>
     </section>
