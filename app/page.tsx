@@ -1,13 +1,5 @@
 "use client";
-import { Header } from "../src/components/Header";
-import { HeroSection } from "../src/components/HeroSection";
-import { AboutSection } from "../src/components/AboutSection";
-import { ProductsSection } from "../src/components/ProductsSection";
-import { ServicesSection } from "../src/components/ServicesSection";
-import { WhyChooseUsSection } from "../src/components/WhyChooseUsSection";
-import { CTASection } from "../src/components/CTASection";
-import { Footer } from "../src/components/Footer";
-import { Toaster } from "../src/components/ui/sonner";
+import App from "../src/App";
 
 export default function Page() {
   const structuredData = {
@@ -116,19 +108,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="min-h-screen bg-white">
-        <Header />
-        <main>
-          <HeroSection />
-          <AboutSection />
-          <ProductsSection onProductSelect={() => {}} />
-          <ServicesSection />
-          <WhyChooseUsSection />
-          <CTASection />
-        </main>
-        <Footer />
-        <Toaster position="top-center" />
-      </div>
+      <App />
     </>
   );
 }

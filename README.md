@@ -1,7 +1,28 @@
 
-# Sonergie-CI Website Design
+# Sonergie-CI E-commerce Website
 
-This is a code bundle for Sonergie-CI Website Design. The original project is available at https://www.figma.com/design/gTqkDkprgBXTl4oPpiJYRR/Sonergie-CI-Website-Design.
+This is a modern e-commerce website for Sonergie-CI, featuring a complete online catalog with shopping cart functionality. The original design is available at https://www.figma.com/design/gTqkDkprgBXTl4oPpiJYRR/Sonergie-CI-Website-Design.
+
+## 🛒 E-commerce Features
+
+### Shopping Experience
+- **Product Catalog**: Browse products by categories (Électricité, Caméra, Climatisation, Plomberie, Accessoires)
+- **Shopping Cart**: Add/remove products, adjust quantities, view total
+- **Product Pages**: Detailed product information with Add to Cart and Purchase buttons
+- **Category Pages**: Filter products by category with full product listings
+- **Random Products**: Featured products displayed on homepage
+
+### User Interface
+- **Responsive Design**: Mobile-first approach with desktop optimization
+- **Modern UI**: Clean, professional design with smooth animations
+- **Interactive Elements**: Hover effects, loading states, and toast notifications
+- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support
+
+### Technical Features
+- **State Management**: React Context for cart state
+- **Type Safety**: Full TypeScript implementation
+- **Performance**: Optimized images and lazy loading
+- **SEO Ready**: Structured data and meta tags
 
 ## SEO Optimizations Implemented
 

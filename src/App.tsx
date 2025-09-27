@@ -2,43 +2,57 @@ import { useState } from "react";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
 import { AboutSection } from "./components/AboutSection";
-import { ProductsSection } from "./components/ProductsSection";
+import { CatalogSection } from "./components/CatalogSection";
 import { ServicesSection } from "./components/ServicesSection";
 import { WhyChooseUsSection } from "./components/WhyChooseUsSection";
 import { CTASection } from "./components/CTASection";
 import { Footer } from "./components/Footer";
-import { ProductDetails } from "./components/ProductDetails";
+import { ProductPage } from "./components/ProductPage";
+import { CategoryPage } from "./components/CategoryPage";
 import { Toaster } from "./components/ui/sonner";
+import { CartProvider } from "./contexts/CartContext";
+import { Product, Category } from "./data/products";
 
-type Page = "home" | "product-details";
+type Page = "home" | "product-details" | "category";
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  icon: any;
-  features: string[];
-}
-
-export default function App() {
+function AppContent() {
   const [currentPage, setCurrentPage] = useState<Page>("home");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
   const handleProductSelect = (product: Product) => {
     setSelectedProduct(product);
     setCurrentPage("product-details");
   };
 
+  const handleCategorySelect = (category: Category) => {
+    setSelectedCategory(category);
+    setCurrentPage("category");
+  };
+
   const handleBackToHome = () => {
     setCurrentPage("home");
     setSelectedProduct(null);
+    setSelectedCategory(null);
   };
 
   if (currentPage === "product-details" && selectedProduct) {
     return (
       <>
-        <ProductDetails product={selectedProduct} onBack={handleBackToHome} />
+        <ProductPage product={selectedProduct} onBack={handleBackToHome} />
+        <Toaster position="top-center" />
+      </>
+    );
+  }
+
+  if (currentPage === "category" && selectedCategory) {
+    return (
+      <>
+        <CategoryPage 
+          category={selectedCategory} 
+          onBack={handleBackToHome}
+          onProductSelect={handleProductSelect}
+        />
         <Toaster position="top-center" />
       </>
     );
@@ -50,7 +64,10 @@ export default function App() {
       <main>
         <HeroSection />
         <AboutSection />
-        <ProductsSection onProductSelect={handleProductSelect} />
+        <CatalogSection 
+          onProductSelect={handleProductSelect}
+          onCategorySelect={handleCategorySelect}
+        />
         <ServicesSection />
         <WhyChooseUsSection />
         <CTASection />
@@ -58,5 +75,13 @@ export default function App() {
       <Footer />
       <Toaster position="top-center" />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <CartProvider>
+      <AppContent />
+    </CartProvider>
   );
 }
